@@ -1,8 +1,8 @@
 class Slot{
-    int id;
+    String id;
     int length;
     boolean chargingPortAvilability;
-    Slot(int id){
+    Slot(String id){
         this.id=id;
         System.out.println("slot "+id);
     }
