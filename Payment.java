@@ -8,12 +8,12 @@ Every 1 min is considered as 1 hour
 interface PaymentMethods{
     void creditMethod();
     void cashMethod();
-    boolean paymentStatus(); 
+    boolean paymentStatus(Vehicle Vh); 
 }
 
 public class Payment implements PaymentMethods{
     // If Paid is 0 : Not Paid  and 1 : Paid
-    private int Paid=0;
+    //Vehicle Vh=new Vehicle();
     public long amount(long l){
         if(l<=1){
             return 20;
@@ -29,8 +29,11 @@ public class Payment implements PaymentMethods{
     public void cashMethod() {
         
     }
-    public boolean paymentStatus(){
-        if(Paid==1){return true;}
+    public boolean paymentStatus(Vehicle Vh){
+        if(Vh.Paid==1){return true;}
         return false;
+    }
+    public void updatePaymentStatus(int i,Vehicle Vh){
+        Vh.Paid=i;
     }
 }
