@@ -2,7 +2,7 @@ class Floor{
     int level;
     Floor(int level){
         this.level=level;
-        System.out.println("Floor "+level);
+        //System.out.println("Floor "+level);
         // Creating an array of slot objects
         Slot[] slotArray=new Slot[20];
         // We are representing the slot id as <Floor_slot>

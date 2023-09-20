@@ -1,19 +1,33 @@
+import java.time.LocalTime;
+
 interface VehicleDetails{
-    String vehicleDetails="";
     boolean paymentStatus();     
     String vehichleType="";
 }
 
-abstract class Vehicle extends VehicleDetails{
-    // Making the entry time stamp as private. This can be accessed using the getter and setter method defined
-    private String entryTimeStamp="";  
+class Vehicle implements VehicleDetails{
+    Payment Pt=new Payment();
+    String vehicleDetails="";
+    // Making the entry/exit time stamp as private. This can be accessed using the getter and setter method defined
+    private LocalTime entryTimeStamp;  
+    private LocalTime exitTimeStamp;  
     //getter Method
-    public String getentryTimeStamp() {
+    public LocalTime getEntryTimeStamp() {
         return entryTimeStamp;
     }
+    public LocalTime getExitTimeStamp() {
+        return exitTimeStamp;
+    }
     // setter Method
-    public void setentryTimeStamp(String entryTimeStamp) {
-        this.entryTimeStamp=entryTimeStamp;
+    public void setEntryTimeStamp(LocalTime objT) {
+        this.entryTimeStamp=objT;
+    }
+    public void setExitTimeStamp(LocalTime exitTimeStamp) {
+        this.exitTimeStamp = exitTimeStamp;
+    }
+    public boolean paymentStatus() {
+        if(Pt.paymentStatus()){return true;}
+        return false;
     }
 }
 
