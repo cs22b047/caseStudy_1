@@ -7,17 +7,21 @@ public class InfoPortal {
     Vehicle Vh=new Vehicle();
     Payment Pt=new Payment();
     
-    public void transaction(int t){
+    public void transaction(long amount){
         Scanner sc=new Scanner(System.in);
         System.out.println("Please type the amount shown above again for recomfirmation :");
         int r=sc.nextInt();
-        if(Pt.amount(t)==r){
-            System.out.println("You have paid : "+r+"Rs");
+        if(amount==r){
+            System.out.println("You have paid : Rs."+r);
             return ;
         }else{
             System.out.println("Transaction failed");
-            transaction(t);
+            transaction(amount);
         }
+    }
+
+    public void normalPayment(long amount,String VehicleType){
+        transaction(amount);
     }
 
     public boolean advancePayment(int i,String VehicleType){
@@ -25,7 +29,7 @@ public class InfoPortal {
         System.out.println("\tYou have opted for Advamce Payment \n\tPlease enter the estimated amount of time (in hours) you will be parking : ");    
         int t=sc.nextInt();
         System.out.println("You have to pay : "+Pt.amount(t));
-        transaction(t);
+        transaction(Pt.amount(t));
         return true;
     }
 
