@@ -38,14 +38,19 @@ public class ArrangeVehicles implements Arranging {
         return s;
     }
 
-    public int findVehicle(Slot[][] Sl,String VehicleNumber){
-        for(int i=0;i<10;i++){
-            for(int j=0;j<20;j++){
+    public int findVehicle(Vehicle[] Vh,String VehicleNumber){
+        for(int i=1;i<100;i++){
+            if(Vh[i].vehicleDetails.equals(VehicleNumber)){
+                return i;
+            }
+        }
+        /*for(int i=0;i<10;i++){
+            for(int j=0;j<40;j++){
                 if(Sl[i][j].VehicleDetail.equals(VehicleNumber)){
                     return Sl[i][j].VehiclePos;
                 }
             }
-        }
+        }*/
         return 0;
     }
 
@@ -65,12 +70,14 @@ public class ArrangeVehicles implements Arranging {
         }
         System.out.println("Parking Lot is full for normal Vehicles");
     }*/
+    
     public void park(Slot[][] Sl,Vehicle Vh,int pos,int floorSi,int floorEi,int slotSi,int slotEi){
     ArrangeVehicles Av=new ArrangeVehicles();
         for(int i=floorSi;i<floorEi;i++){
             for(int j=slotSi;j<slotEi;j++){
                 if(!Sl[i][j].slotOccupied){
                     Sl[i][j].slotOccupied=true;
+                    System.out.println(i+" "+j);
                     Vh.floor=i;
                     Vh.slot=j;
                     Sl[i][j].VehiclePos=pos;
@@ -80,7 +87,7 @@ public class ArrangeVehicles implements Arranging {
                 }
             }
         }
-        System.out.println("Parking Lot is full for "+Av.returnVehicleType(Vh)+"Vehicles");
+        System.out.println("Parking Lot is full for "+Av.returnVehicleType(Vh)+" Vehicles");
     }
 
     /*public void parkElectric(Slot[][] Sl,Vehicle Vh,int pos){

@@ -11,7 +11,7 @@ public class ParkingLot{
     public void filledSlot(Slot[][] Sl){
         System.out.println("\n\t\t------------------\tParking Status\t------------------");
         for(int i=0;i<10;i++){
-            for(int j=0;j<20;j++){
+            for(int j=0;j<40;j++){
                 if(Sl[i][j].slotOccupied){
                     System.out.println("Vehicle Number : "+Sl[i][j].VehicleDetail+"\tVehicle Type : "+Sl[i][j].VehicleType+"\tFloor : "+i+"\tSlot : "+j);
                 }
@@ -22,7 +22,7 @@ public class ParkingLot{
     public static void main(String[] args){
         Slot[][] Sl=new Slot[10][40]; //10 represents floors and 20 represents slots per floor
         for(int i=0;i<10;i++){
-            for(int j=0;j<20;j++){
+            for(int j=0;j<40;j++){
                 Sl[i][j]=new Slot();
             }
         }
@@ -37,7 +37,7 @@ public class ParkingLot{
         System.out.println("If you want to park a new Vehicle Type \"Park\"");
         String s=sc.next();
 
-
+        //Program runs till user quits the program
         while(true){
             if(s.equals("Park")){
                 i++;
@@ -70,9 +70,10 @@ public class ParkingLot{
 
             if(s.equals("Exit")){
                 //Which car to exit
-                System.out.println("Enter your Car Number : ");
+                System.out.println("Enter your Vehicle Number : ");
                 VehicleNumber=sc.next();
-                int Pos = Av.findVehicle(Sl, VehicleNumber);
+                //int Pos = Av.findVehicle(Sl, VehicleNumber);
+                int Pos = Av.findVehicle(Vh, VehicleNumber);
 
                 //Exit the Vehicle
                 Av.exitVehicle(Sl, Vh[Pos]);

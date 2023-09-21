@@ -1,3 +1,7 @@
+//Floor Class is not required as everything comes in Slot class. Hence we can delete this file
+
+import java.util.*;
+
 class Floor{
     boolean slotOccupied=false;
     String VehicleDetail;
