@@ -23,13 +23,18 @@ import java.time.LocalTime;
 import java.util.*;
 
 interface Arranging{
-    public void park(Slot[][] Sl,Vehicle Vh,int pos,int floorSi,int floorEi,int slotSi,int slotEi);
+    public String returnVehicleType(Vehicle Vh);        //Returns the Type of the Vehicle
+    public int findVehicle(Vehicle[] Vh,String VehicleNumber);  //Returns the position of the Vehicle
+    public void park(Slot[][] Sl,Vehicle Vh,int pos,int floorSi,int floorEi,int slotSi,int slotEi);//Parks the Vehicle in the slot
+    public void parkVehicle(Slot[][] Sl,Vehicle Vh,int pos);//This method will take into account the vehicle type and then call the park method
+    public void exitVehicle(Slot[][] Sl,Vehicle Vh);//This method will exit the vehicle from the ParkingLot
 }
 
 public class ArrangeVehicles implements Arranging {
     InfoPortal Ip=new InfoPortal();
     Payment Pt=new Payment();
 
+    //Returns the Type of the Vehicle
     public String returnVehicleType(Vehicle Vh){
         String s="";
         if(Vh.vehicleType=="N"){s="Normal Car";}
@@ -39,6 +44,7 @@ public class ArrangeVehicles implements Arranging {
         return s;
     }
 
+    //Returns the position of the Vehicle
     public int findVehicle(Vehicle[] Vh,String VehicleNumber){
         for(int i=1;i<100;i++){
             if(Vh[i].vehicleDetails.equals(VehicleNumber)){
@@ -72,6 +78,7 @@ public class ArrangeVehicles implements Arranging {
         System.out.println("Parking Lot is full for normal Vehicles");
     }*/
     
+    //Parks the Vehicle in the slot
     public void park(Slot[][] Sl,Vehicle Vh,int pos,int floorSi,int floorEi,int slotSi,int slotEi){
     ArrangeVehicles Av=new ArrangeVehicles();
         for(int i=floorSi;i<floorEi;i++){
@@ -108,6 +115,7 @@ public class ArrangeVehicles implements Arranging {
         System.out.println("Parking Lot for Electric Vehicles is full.");
     }*/
 
+    //This method will take into account the vehicle type and then call the park method
     public void parkVehicle(Slot[][] Sl,Vehicle Vh,int pos){
     ArrangeVehicles Av=new ArrangeVehicles();
         if(Vh.vehicleType.equals("E")){
@@ -134,6 +142,7 @@ public class ArrangeVehicles implements Arranging {
         }
     }
 
+    //This method will exit the vehicle from the ParkingLot
     public void exitVehicle(Slot[][] Sl,Vehicle Vh){
         LocalTime ObjT = LocalTime.now();
         Vh.setExitTimeStamp(ObjT);

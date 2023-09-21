@@ -1,12 +1,16 @@
 import java.util.*;
+
 interface CustomerInfoPortal{
-    String VacantSpace="";
+    public void transaction(long amount);   //This method ensures that the user has paid the required amount else it will recurse itself
+    public void normalPayment(long amount,String VehicleType);  //This method is called when the user want to pay at the time of exit 
+    public long advancePayment(Vehicle Vh,int i);   //This method is called when the user want to pay in advance 
 }
 
 public class InfoPortal {
-    Vehicle Vh=new Vehicle();
-    Payment Pt=new Payment();
+    Vehicle Vh=new Vehicle();   //Vehicle Object is created to access the vehicle's attributes
+    Payment Pt=new Payment();   //Payment Object is created to access Payment class's Methods
     
+    //This method ensures that the user has paid the required amount else it will recurse itself
     public void transaction(long amount){
         Scanner sc=new Scanner(System.in);
         System.out.println("Please type the amount shown above again for recomfirmation :");
@@ -20,10 +24,12 @@ public class InfoPortal {
         }
     }
 
+    //This method is called when the user want to pay at the time of exit 
     public void normalPayment(long amount,String VehicleType){
         transaction(amount);
     }
 
+    //This method is called when the user want to pay in advance 
     public long advancePayment(Vehicle Vh,int i){
         Scanner sc=new Scanner(System.in);
         System.out.println("\tYou have opted for Advamce Payment \n\tPlease enter the estimated amount of time (in hours) you will be parking : ");    

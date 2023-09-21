@@ -2,12 +2,19 @@ import java.time.Duration;
 import java.time.LocalTime;
 import java.util.*;
 
+interface ParkingSlots{
+    public void clearSlot(Slot[][] Sl,int i,int j);     //Clear Slot method will clear the slot if it contains any vehicle
+    public void filledSlot(Slot[][] Sl);                //FilledSlot will print all the slots filled int the ParkingLot
+}  
 
-public class ParkingLot{
-    
+public class ParkingLot implements ParkingSlots{
+
+    //Clear Slot method will clear the slot if it contains any vehicle
     public void clearSlot(Slot[][] Sl,int i,int j){
         Sl[i][j].slotOccupied=false;
     }
+
+    //FilledSlot will print all the slots filled int the ParkingLot
     public void filledSlot(Slot[][] Sl){
         System.out.println("\n\t\t------------------\tParking Status\t------------------");
         for(int i=0;i<10;i++){
@@ -19,6 +26,7 @@ public class ParkingLot{
         }
         System.out.println();
     }
+
     public static void main(String[] args){
         Slot[][] Sl=new Slot[10][40]; //10 represents floors and 20 represents slots per floor
         for(int i=0;i<10;i++){
