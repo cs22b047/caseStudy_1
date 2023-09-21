@@ -2,13 +2,14 @@
  Parking Spots : 
     Total 10 Floors
     Floor 0 means Ground Floor
-    Floor 0 and 1 only for Trucks
-    Floor 2 onwards to 10 for Cars and Bikes 
+    Floor 0 only for Trucks and Handicapped
+    Floor 1 for only VIPS Cars (normal and electric)
+    Floor 2 onwards to 10 for Cars of normal and electric and Bikes 
     
     Total 40 Slots per Floor
     In ground floor :
-        Slot 0 to 20 for Trucks
-        Slot 20 to 40 for Handicapped
+        Slot 0 to 30 for Trucks
+        Slot 30 to 40 for Handicapped
     In Other Floors : 
         Slot 0 to 15 for Normal Vehicles
         Slot 15 t 20 for Electric Vehicles
@@ -51,7 +52,7 @@ public class ArrangeVehicles implements Arranging {
                 }
             }
         }*/
-        return 0;
+        return -1;
     }
 
     /*public void parkNormal(Slot[][] Sl,Vehicle Vh,int pos){
@@ -77,7 +78,7 @@ public class ArrangeVehicles implements Arranging {
             for(int j=slotSi;j<slotEi;j++){
                 if(!Sl[i][j].slotOccupied){
                     Sl[i][j].slotOccupied=true;
-                    System.out.println(i+" "+j);
+                    //System.out.println(i+" "+j);
                     Vh.floor=i;
                     Vh.slot=j;
                     Sl[i][j].VehiclePos=pos;
@@ -116,10 +117,20 @@ public class ArrangeVehicles implements Arranging {
             Av.park(Sl, Vh, pos, 2, 10, 0, 15);
         }
         else if(Vh.vehicleType.equals("T")){
-            Av.park(Sl, Vh, pos, 0, 1, 0, 20);;
+            Av.park(Sl, Vh, pos, 0, 1, 0, 30);;
         }
         else if(Vh.vehicleType.equals("M")){
             Av.park(Sl, Vh, pos, 2, 10, 20, 40);
+        }
+        else if(Vh.Special.toLowerCase().equals("vip")){
+            if(Vh.vehicleType.equals("E")){
+                Av.park(Sl, Vh, pos, 1, 2, 30, 40);
+            }else{
+                Av.park(Sl, Vh, pos, 1, 2, 0, 30);
+            }
+        }
+        else if(Vh.Special.toLowerCase().equals("handicapped")){
+            Av.park(Sl, Vh, pos, 0, 1, 30, 40);
         }
     }
 
@@ -132,13 +143,27 @@ public class ArrangeVehicles implements Arranging {
         System.out.println("Time parked : " +timeElapsed.toMillis()/60000+"hrs");
 
         if(Vh.paymentStatus(Vh)){
-            System.out.println("You have Paid in Advance for the Vehicle with Number Plate : "+Vh.vehicleDetails);
+            long amount=Pt.amount((timeElapsed.toMillis()/60000));
+            if(Vh.Paid<=amount){
+                System.out.println("Amount to be Paid : "+amount+"\nYou have paid an advance of : "+Vh.Paid+"\nYou have a short fall of : "+(amount-Vh.Paid));
+                Ip.transaction(amount-Vh.Paid);
+            }
+            else{
+                System.out.println("You have Paid in Advance for the Vehicle with Number Plate : "+Vh.vehicleDetails);
+            }
         }else{
             long amount=Pt.amount((timeElapsed.toMillis()/60000));
+            if(Vh.Special.toLowerCase().equals("vip")){
+                amount+=500;
+                //System.out.println("You have to pay : "+amount);
+            }else if(Vh.vehicleType.equals("T")){
+                System.out.println("Since Your Vehicle type is Truck you have to pay an extra of Rs.600/-");
+                amount+=600;
+            }
             System.out.println("Amount to be paid : "+amount+"Rs");
             Ip.transaction(amount);
             //Ip.normalPayment(Pt.amount((timeElapsed.toMillis()/60000)), null);
         }
-        System.out.println("You can exit from Exit_"+Vh.floor);
+        System.out.println("Thank you for using our Parking Lot \n\t\tYou can exit from Exit "+Vh.floor);
     }
 }

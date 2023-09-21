@@ -24,13 +24,27 @@ public class InfoPortal {
         transaction(amount);
     }
 
-    public boolean advancePayment(int i,String VehicleType){
+    public long advancePayment(Vehicle Vh,int i){
         Scanner sc=new Scanner(System.in);
         System.out.println("\tYou have opted for Advamce Payment \n\tPlease enter the estimated amount of time (in hours) you will be parking : ");    
         int t=sc.nextInt();
-        System.out.println("You have to pay : "+Pt.amount(t));
-        transaction(Pt.amount(t));
-        return true;
+        long Amt=Pt.amount(t);
+        if(Vh.Special.toLowerCase().equals("vip")){
+            Amt+=500;
+        }
+        if(Vh.vehicleType.equals("E")){
+            System.out.println("If you want to charge your car ,you will need to pay extra Rs.500/- Enter yes or no");
+            String s=sc.next();
+            if(s.toLowerCase().equals("yes")){Amt+=500;}
+        }else if(Vh.vehicleType.equals("T")){
+            System.out.println("Since Your Vehicle type is Truck you have to pay an extra of Rs.600/-");
+            Amt+=600;
+        }
+        System.out.println("What is the method of payment : Credit card or cash");
+        String s=sc.next();
+        System.out.println("You have to pay : "+Amt);
+        transaction(Amt);
+        return Amt;
     }
 
 }

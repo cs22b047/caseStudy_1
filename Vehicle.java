@@ -5,10 +5,12 @@ interface VehicleDetails{
 }
 
 class Vehicle implements VehicleDetails{   
-    int floor=0,slot=0,Paid=0;  
+    int floor=0,slot=0;
+    long Paid=0;  
     String vehicleType="";
     Payment Pt=new Payment();
     String vehicleDetails="";
+    String Special="";
 
     // Making the entry/exit time stamp as private. This can be accessed using the getter and setter method defined
     private LocalTime entryTimeStamp;  

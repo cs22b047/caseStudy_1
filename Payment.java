@@ -12,7 +12,7 @@ interface PaymentMethods{
 }
 
 public class Payment implements PaymentMethods{
-    // If Paid is 0 : Not Paid  and 1 : Paid
+    // If Paid is 0 : Not Paid 
     //Vehicle Vh=new Vehicle();
     public long amount(long l){
         if(l<=1){
@@ -21,19 +21,20 @@ public class Payment implements PaymentMethods{
             return 30;
         }
         
-        return 20+(l-3)*5;
+        return 50+(l-3)*5;
     }
     public void creditMethod(){
-
+        System.out.println("You have Paid through Credit Card");
     }
     public void cashMethod() {
+        System.out.println("You have Paid through Cash");
         
     }
     public boolean paymentStatus(Vehicle Vh){
-        if(Vh.Paid==1){return true;}
-        return false;
+        if(Vh.Paid==0){return false;}
+        return true;
     }
-    public void updatePaymentStatus(int i,Vehicle Vh){
+    public void updatePaymentStatus(long i,Vehicle Vh){
         Vh.Paid=i;
     }
 }

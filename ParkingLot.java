@@ -30,7 +30,7 @@ public class ParkingLot{
         Payment Pt=new Payment();
         InfoPortal Ip=new InfoPortal();
         ParkingLot Pl=new ParkingLot();
-        Vehicle[] Vh=new Vehicle[100];
+        Vehicle[] Vh=new Vehicle[400];
         Scanner sc=new Scanner(System.in);   
         int i=0;
         String VehicleNumber;
@@ -39,7 +39,7 @@ public class ParkingLot{
 
         //Program runs till user quits the program
         while(true){
-            if(s.equals("Park")){
+            if(s.toLowerCase().equals("park")){
                 i++;
                 LocalTime ObjT = LocalTime.now();
                 Vh[i]=new Vehicle();
@@ -49,26 +49,39 @@ public class ParkingLot{
                 Vh[i].vehicleDetails=sc.next();
 
                 //Vehicle Type Input
-                System.out.println("Enter the Type of the Vehicle :\tEnter \nElectric Car\tE\nNormal Car\tN\nTruck\t\tT\nMotorCycle\tM");
+                System.out.println("Enter the Type of the Vehicle :\tEnter \n\tElectric Car\tE\n\tNormal Car\tN\n\tTruck\t\tT\n\tMotorCycle\tM");
                 Vh[i].vehicleType=sc.next();
+
+                ///Special Vehicles
+                if(!Vh[i].vehicleType.equals("T")){
+                    System.out.println("Do you want to use any of our services :\n\t1)VIP\n\t2)Handicapped\nIf no type \"no\" ");
+                    s=sc.next();
+                    Vh[i].Special=s;
+                }
 
                 //Advance Payment
                 System.out.println("If You want to pay in advance type \"Advance\" else if you want to pay at exit type \"at Exit\"");
                 String Advance=sc.next();
-                if(Advance.equals("Advance")){if(Ip.advancePayment(i,Vh[i].vehicleType)){Pt.updatePaymentStatus(1,Vh[i]);};}
+                if(Advance.toLowerCase().equals("advance")){
+                    long Amt=Ip.advancePayment(Vh[i],i);
+                    if(Amt!=0){
+                        Pt.updatePaymentStatus(Amt,Vh[i]);
+                    }
+                }
 
                 //Park Vehicle
                 Av.parkVehicle(Sl, Vh[i], i);
+                System.out.println("Your Vehicle is parked on floor "+Vh[i].floor+" at slot "+Vh[i].slot);
 
                 //Vehicle entry TimeStamp
                 Vh[i].setEntryTimeStamp(ObjT);
 
-                System.out.println("Vehicle Number : "+Vh[i].vehicleDetails+ "\t\tEntry Time : " +ObjT);
+                System.out.println("\t\tVehicle Number : "+Vh[i].vehicleDetails+ "\t\tEntry Time : " +ObjT);
 
             }
 
 
-            if(s.equals("Exit")){
+            if(s.toLowerCase().equals("exit")){
                 //Which car to exit
                 System.out.println("Enter your Vehicle Number : ");
                 VehicleNumber=sc.next();
