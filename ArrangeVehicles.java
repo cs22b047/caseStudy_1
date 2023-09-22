@@ -118,7 +118,17 @@ public class ArrangeVehicles implements Arranging {
     //This method will take into account the vehicle type and then call the park method
     public void parkVehicle(Slot[][] Sl,Vehicle Vh,int pos){
     ArrangeVehicles Av=new ArrangeVehicles();
-        if(Vh.vehicleType.equals("E")){
+        if(Vh.Special.toLowerCase().equals("vip")){
+            if(Vh.vehicleType.equals("E")){
+                Av.park(Sl, Vh, pos, 1, 2, 30, 40);
+            }else{
+                Av.park(Sl, Vh, pos, 1, 2, 0, 30);
+            }
+        }
+        else if(Vh.Special.toLowerCase().equals("handicapped")){
+            Av.park(Sl, Vh, pos, 0, 1, 30, 40);
+        }
+        else if(Vh.vehicleType.equals("E")){
             Av.park(Sl, Vh,pos, 2, 10, 15, 20);
         }
         else if(Vh.vehicleType.equals("N")){
@@ -130,16 +140,7 @@ public class ArrangeVehicles implements Arranging {
         else if(Vh.vehicleType.equals("M")){
             Av.park(Sl, Vh, pos, 2, 10, 20, 40);
         }
-        else if(Vh.Special.toLowerCase().equals("vip")){
-            if(Vh.vehicleType.equals("E")){
-                Av.park(Sl, Vh, pos, 1, 2, 30, 40);
-            }else{
-                Av.park(Sl, Vh, pos, 1, 2, 0, 30);
-            }
-        }
-        else if(Vh.Special.toLowerCase().equals("handicapped")){
-            Av.park(Sl, Vh, pos, 0, 1, 30, 40);
-        }
+        
     }
 
     //This method will exit the vehicle from the ParkingLot
