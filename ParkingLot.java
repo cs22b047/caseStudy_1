@@ -89,7 +89,7 @@ public class ParkingLot implements ParkingSlots{
             }
 
 
-            if(s.toLowerCase().equals("exit")){
+            else if(s.toLowerCase().equals("exit")){
                 //Which car to exit
                 System.out.println("Enter your Vehicle Number : ");
                 VehicleNumber=sc.next();
